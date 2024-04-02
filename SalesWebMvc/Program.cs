@@ -5,12 +5,13 @@ namespace SalesWebMvc
 {
     public class Program
     {
-        public static void 
-            Main(string[] args)
+        public static void Main(string[] args)
         {
+            var connectionStr = "server=localhost;userid=root;password=root;database=saleswebmvcappdb";
             var builder = WebApplication.CreateBuilder(args); 
+
             builder.Services.AddDbContext<SalesWebMvcContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("SalesWebMvcContext") ?? throw new InvalidOperationException("Connection string 'SalesWebMvcContext' not found.")));
+                options.UseMySql(connectionStr, ServerVersion.AutoDetect(connectionStr)));
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
